@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English Study Local</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>English Study</h1>
+        <p>한글 의도와 내가 쓴 영어를 비교해 자연스러운 표현으로 다듬습니다.</p>
+      </div>
+      <div class="status-pill" id="storageStatus">로컬 저장</div>
+    </header>
+
+    <section class="workspace" aria-label="영어 검토 입력">
+      <label class="editor-panel">
+        <span>말하고 싶은 내용</span>
+        <textarea id="koreanInput" placeholder="예: 오늘 회의에서 제가 놓친 부분이 있는지 확인하고 싶습니다."></textarea>
+      </label>
+
+      <label class="editor-panel">
+        <span>내가 작성한 영어</span>
+        <textarea id="englishInput" placeholder="예: I want to check if there is something I missed in today's meeting."></textarea>
+      </label>
+    </section>
+
+    <section class="controls" aria-label="검토 설정">
+      <div class="main-actions">
+        <button id="reviewButton" class="primary-button">검토</button>
+        <button id="habitButton" class="secondary-button">영어습관 검토</button>
+      </div>
+
+      <details class="advanced-options">
+        <summary>필요할 때만 설정</summary>
+        <div class="option-grid">
+          <label>
+            표현 방향
+            <select id="styleSelect">
+              <option value="auto">AI가 자동 판단</option>
+              <option value="natural">자연스럽게</option>
+              <option value="native">원어민스럽게</option>
+              <option value="polite">공손하게</option>
+              <option value="simple">쉽고 간단하게</option>
+            </select>
+          </label>
+          <label>
+            상황 메모
+            <input id="contextInput" type="text" placeholder="선택 입력: 업무 메일, 친구와 대화 등">
+          </label>
+          <label>
+            API 제공자
+            <select id="providerSelect">
+              <option value="google">Google Gemini</option>
+              <option value="openai">OpenAI</option>
+            </select>
+          </label>
+          <label>
+            API 모델
+            <select id="modelInput">
+              <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
+              <option value="gemini-2.0-flash-lite">Gemini 2.0 Flash-Lite</option>
+              <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="gpt-5-mini">OpenAI GPT-5 Mini</option>
+            </select>
+          </label>
+        </div>
+      </details>
+    </section>
+
+    <section class="result-area" aria-label="검토 결과">
+      <div class="result-header">
+        <h2>검토 결과</h2>
+        <button id="copyResultButton" class="icon-button" title="결과 복사">복사</button>
+      </div>
+      <pre id="resultOutput">아직 검토 결과가 없습니다.</pre>
+    </section>
+
+    <section class="settings-area" aria-label="API와 학습 데이터 관리">
+      <details>
+        <summary>API와 학습 정보</summary>
+        <div class="settings-grid">
+          <label>
+            API Key
+            <input id="apiKeyInput" type="password" placeholder="Google: AIza... / OpenAI: sk-...">
+          </label>
+          <div class="settings-actions">
+            <button id="saveApiButton" class="secondary-button">API 저장</button>
+            <button id="clearApiButton" class="danger-button">API 초기화</button>
+            <button id="exportHistoryButton" class="secondary-button">학습기록 내보내기</button>
+            <button id="importHistoryButton" class="secondary-button">학습기록 가져오기</button>
+            <button id="clearHistoryButton" class="danger-button">학습정보 초기화</button>
+            <input id="importHistoryInput" type="file" accept="application/json,.json" hidden>
+          </div>
+        </div>
+        <p class="notice">1차 로컬 프로토타입입니다. API 키와 학습 기록은 이 브라우저에만 저장됩니다.</p>
+      </details>
+    </section>
+
+    <section class="history-area" aria-label="누적 학습 기록">
+      <div class="history-header">
+        <h2>누적 학습</h2>
+        <span id="historyCount">0개</span>
+      </div>
+      <ol id="historyList" class="history-list"></ol>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
